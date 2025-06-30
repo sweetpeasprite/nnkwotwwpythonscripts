@@ -13,7 +13,7 @@ print("    +*%@@@#=                  "
 + "\n             ##      #*       "
 + "\n          =%+           #+    "
 + "\n       +#=                =*= ")
-print("Tool for unpacking .p3igg texture packages in Ni no Kuni: Wrath of the White Witch.\nCreated by sweetpea-sprite.\nPossibly only works on textures that come from .pkchr files...\n")
+print("Tool for unpacking .p3igg texture packages in Ni no Kuni: Wrath of the White Witch.\nCreated by sweetpea-sprite.\nUses BC7/DXT10 DDS encoding, commonly used for menus.")
 
 # imports
 import os.path
