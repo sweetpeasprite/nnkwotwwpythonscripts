@@ -1,5 +1,5 @@
 A collection of Python 3 scripts for modding Ni no Kuni: Wrath of the White Witch Remastered.  
-All scripts require Python 3 to be installed.  
+**All scripts require Python 3 to be installed.**  
 Usage instructions are included in the .py, see below for more details.  
 
 ---
