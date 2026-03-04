@@ -40,7 +40,7 @@ if os.path.isfile(pathToFile) == True: # checks that the file exists
         offs = 0
         currentByte = struct.unpack_from("I", rawData, offs)
         i = 0
-        while currentByte[0] != 3766650362 and i != 10:
+        while currentByte[0] != 3766650362 and currentByte[0] != 4043598023 and i != 10:
             header += struct.unpack_from("IIII", rawData, offs)
             offs += 16
             currentByte = struct.unpack_from("I", rawData, offs)
@@ -56,6 +56,7 @@ if os.path.isfile(pathToFile) == True: # checks that the file exists
         # grab the number of dialogues + sections from the header
         numDialogues = header[3]
         numSects = header[-2]
+        dialogueStart = header[1]
         
         # SECTION 1
         
@@ -78,8 +79,8 @@ if os.path.isfile(pathToFile) == True: # checks that the file exists
             section2.append(current)
             offs += 32
         
-        # skip section break
-        offs += 16
+        # skip to start of dialogue
+        offs = dialogueStart
         
         # finally. the actual dialogue
         # DIALOGUE
@@ -113,8 +114,11 @@ if os.path.isfile(pathToFile) == True: # checks that the file exists
                         message += "[n~]"
                     offs += 2
                 else:
-                    message += str(struct.unpack_from("c", rawData, offs)[0], "utf-8")
-                    offs += 1
+                    try:
+                        message += str(struct.unpack_from("c", rawData, offs)[0], "utf-8")
+                        offs += 1
+                    except:
+                        offs += 1
                 currentChar = rawData[offs]
                 charCheck3 = rawData[offs:offs+3]
                 charCheck2 = rawData[offs:offs+2]
@@ -122,6 +126,8 @@ if os.path.isfile(pathToFile) == True: # checks that the file exists
             currentChar = rawData[offs]
             if not message.startswith("201") and message != "default" and message != "IDK591-1064" and message != "Marcin Kdzierski":
                 dialogueContent.append(message)
+            else:
+                numDialogues -= 1
             message = ""
         
         # skip padding
